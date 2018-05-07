@@ -1,4 +1,4 @@
-# JorgeBOT
+# YouBOT
 The most useless and self-centered Discord bot you'll ever find
 
 ## `config.json` structure:
