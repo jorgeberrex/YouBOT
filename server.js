@@ -9,21 +9,26 @@ var cooldowns = {};
 if (!config.token) {
     console.log('Token not set.');
     process.exit();
-} else if (!config.keyword) {
+} else if (!config.keywords) {
     console.log('Keyword not set.');
     process.exit();
 }
 
 client.on('message', msg => {
-    if (msg.content.toLowerCase().includes(config.keyword) ||
-        msg.content.includes(`<@${client.user.id}>`)) {
-        if (!cooldowns.hasOwnProperty(msg.author) || cooldowns.hasOwnProperty(msg.author) && new Date().getTime() - cooldowns[msg.author] > 4000) {
-            msg.channel.send(quotes.length > 0 ? getRandomQuote() : "Hello!");
-            addCooldown(msg.author);
-        } else {
-            msg.channel.send("You really like me, don't you... Well, you gotta wait " + (4-(new Date().getTime() - cooldowns[msg.author])/1000) + " seconds ¯\\\_(ツ)\_/¯");
+    for (var i in config.keywords) {
+        var keyword = config.keywords[i];
+        if  (msg.content.toLowerCase().includes(keyword) ||
+            msg.content === `<@${client.user.id}>`) {
+            if (!cooldowns.hasOwnProperty(msg.author) || cooldowns.hasOwnProperty(msg.author) && new Date().getTime() - cooldowns[msg.author] > config.cooldown) {
+                msg.channel.send(quotes.length > 0 ? getRandomQuote() : "Hello!");
+                addCooldown(msg.author);
+            } else {
+                msg.channel.send(config.cooldownMessage.replace("%seconds%", (config.cooldown/1000-(new Date().getTime() - cooldowns[msg.author])/1000)));
+            }
+            return;
         }
     }
+    
 });
 
 client.on('ready', () => {
@@ -35,8 +40,9 @@ client.on('guildCreate', (guild) => {
 })
 
 function addCooldown(author) {
+    if (config.cooldown <= 0) return; 
     var date = new Date().getTime();
-    for (var id in cooldowns) if (date - cooldowns[id] > 4000) delete cooldowns[id];
+    for (var id in cooldowns) if (date - cooldowns[id] > config.cooldown) delete cooldowns[id];
     cooldowns[author] = date;
 }
 
