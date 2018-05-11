@@ -10,7 +10,7 @@ if (!config.token) {
     console.log('Token not set.');
     process.exit();
 } else if (!config.keywords) {
-    console.log('Keyword not set.');
+    console.log('Keywords not set.');
     process.exit();
 }
 
