@@ -5,7 +5,9 @@ The most useless and self-centered Discord bot you'll ever find
 ```JSON
 {
   "token": "YOUR_DISCORD_BOT_TOKEN",
-  "keyword": "YOUR_NAME"
+  "keywords": ["YOUR_NAME", "SECOND_KEYWORD_FOR_SOME_REASON"],
+  "cooldown": 4000,
+  "cooldownMessage": "bruh, you are going too fast, wait %seconds% seconds"
 }
 ```
 
