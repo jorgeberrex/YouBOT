@@ -18,7 +18,7 @@ client.on('message', msg => {
     for (var i in config.keywords) {
         var keyword = config.keywords[i];
         if  (msg.content.toLowerCase().includes(keyword) ||
-            msg.content === `<@${client.user.id}>`) {
+            msg.content === `<@!${client.user.id}>`) {
             if (!cooldowns.hasOwnProperty(msg.author) || cooldowns.hasOwnProperty(msg.author) && new Date().getTime() - cooldowns[msg.author] > config.cooldown) {
                 msg.channel.send(quotes.length > 0 ? getRandomQuote() : "Hello!");
                 addCooldown(msg.author);
