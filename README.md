@@ -12,10 +12,12 @@ The `cooldown` field is time in milliseconds (1000 milliseconds = 1 second)
 }
 ```
 
+
 ## `quotes.json` structure:
 ```JSON
 [
   "I am so good looking",
-  "This bot is not good, who even made this"
+  "This bot is not good, who even made this",
+  "I am testing stuff ok?"
 ]
 ```
