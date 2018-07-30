@@ -20,6 +20,7 @@ client.on('message', msg => {
         if  (msg.content.toLowerCase().includes(keyword) ||
             msg.content === `<@!${client.user.id}>`) {
             if (!cooldowns.hasOwnProperty(msg.author) || cooldowns.hasOwnProperty(msg.author) && new Date().getTime() - cooldowns[msg.author] > config.cooldown) {
+                if (config.log) console.log(`${msg.guild.name} (#${msg.guild.id}) by ${msg.author.tag} (#${msg.author.id})`)
                 try {
                     msg.channel.send(quotes.length > 0 ? getRandomQuote() : "Hello!");
                     addCooldown(msg.author);
@@ -27,6 +28,7 @@ client.on('message', msg => {
                     console.log(err);
                 }
             } else {
+                if (config.log) console.log(`${msg.guild.name} (#${msg.guild.id}) by ${msg.author.tag} (#${msg.author.id}) - COOLDOWN`)
                 try {
                     msg.channel.send(config.cooldownMessage.replace("%seconds%", (config.cooldown/1000-(new Date().getTime() - cooldowns[msg.author])/1000).toFixed(1)));
                 } catch (err) {
