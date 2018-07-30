@@ -20,10 +20,18 @@ client.on('message', msg => {
         if  (msg.content.toLowerCase().includes(keyword) ||
             msg.content === `<@!${client.user.id}>`) {
             if (!cooldowns.hasOwnProperty(msg.author) || cooldowns.hasOwnProperty(msg.author) && new Date().getTime() - cooldowns[msg.author] > config.cooldown) {
-                msg.channel.send(quotes.length > 0 ? getRandomQuote() : "Hello!");
-                addCooldown(msg.author);
+                try {
+                    msg.channel.send(quotes.length > 0 ? getRandomQuote() : "Hello!");
+                    addCooldown(msg.author);
+                } catch (err) {
+                    console.log(err);
+                }
             } else {
-                msg.channel.send(config.cooldownMessage.replace("%seconds%", (config.cooldown/1000-(new Date().getTime() - cooldowns[msg.author])/1000)));
+                try {
+                    msg.channel.send(config.cooldownMessage.replace("%seconds%", (config.cooldown/1000-(new Date().getTime() - cooldowns[msg.author])/1000).toFixed(1)));
+                } catch (err) {
+                    console.log(err);
+                }
             }
             return;
         }
