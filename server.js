@@ -15,6 +15,7 @@ if (!config.token) {
 }
 
 client.on('message', msg => {
+    if (msg.author.bot) return;
     for (var i in config.keywords) {
         var keyword = config.keywords[i];
         if  (msg.content.toLowerCase().includes(keyword) ||
