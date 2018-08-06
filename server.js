@@ -64,5 +64,5 @@ function getRandomQuote() {
 }
 
 function rand(max) {
-    return Math.round(Math.random() * max);
+    return Math.round(Math.random() * (max - 1));
 }
