@@ -16,6 +16,12 @@ if (!config.token) {
 
 client.on('message', msg => {
     if (msg.author.bot) return;
+    if ((config.cmdUserWhitelist || []).includes(msg.author.id)) {
+        if (msg.content === "!serverCount") {
+            msg.reply(`This bot is in ${client.guilds.array().length} guilds`)
+            return;
+        }
+    }
     for (var i in config.keywords) {
         var keyword = config.keywords[i];
         if  (msg.content.toLowerCase().includes(keyword) ||
