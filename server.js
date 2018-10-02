@@ -21,6 +21,10 @@ client.on('message', msg => {
             msg.reply(`This bot is in ${client.guilds.array().length} guilds`)
             return;
         }
+        if (msg.content === "!why") {
+            msg.reply(`why not`)
+            return;
+        }
     }
     for (var i in config.keywords) {
         var keyword = config.keywords[i];
