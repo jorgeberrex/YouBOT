@@ -12,13 +12,16 @@ if (!config.token) {
 } else if (!config.keywords) {
     console.log('Keywords not set.');
     process.exit();
-}
+}   
 
 client.on('message', msg => {
     if (msg.author.bot) return;
     if ((config.cmdUserWhitelist || []).includes(msg.author.id)) {
         if (msg.content === "!serverCount") {
             msg.reply(`This bot is in ${client.guilds.array().length} guilds`)
+            return;
+        } else if (msg.content === "!why") {
+            msg.reply(`why not`)
             return;
         }
     }
