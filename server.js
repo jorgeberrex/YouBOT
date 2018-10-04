@@ -15,7 +15,7 @@ if (!config.token) {
 }   
 
 client.on('message', msg => {
-    if (msg.author.bot) return;
+    if (msg.author.bot && msg.author.id !== '385220790036987914') return;
     if ((config.cmdUserWhitelist || []).includes(msg.author.id)) {
         if (msg.content === "!serverCount") {
             msg.reply(`This bot is in ${client.guilds.array().length} guilds`)
