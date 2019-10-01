@@ -23,6 +23,9 @@ client.on('message', msg => {
         } else if (msg.content === "!why") {
             msg.reply(`why not`)
             return;
+        } else if (msg.content.startsWith("!am i disabled")) {
+            msg.reply(`this is u rn https://i.imgur.com/JjK12c9.png`)
+            return;
         }
     }
     for (var i in config.keywords) {
