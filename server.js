@@ -9,7 +9,7 @@ var cooldowns = {};
 if (!config.token) {
     console.log('Token not set.');
     process.exit();
-} else if (!config.keywords) {
+} else if (!config.keywords || config.keywords.length <= 0) {
     console.log('Keywords not set.');
     process.exit();
 }   
@@ -38,11 +38,13 @@ client.on('message', msg => {
                     console.log(err);
                 }
             } else {
-                if (config.log) console.log(`${msg.guild.name} (#${msg.guild.id}) by ${msg.author.tag} (#${msg.author.id}) - COOLDOWN`)
-                try {
-                    msg.channel.send(config.cooldownMessage.replace("%seconds%", (config.cooldown/1000-(new Date().getTime() - cooldowns[msg.author])/1000).toFixed(1)));
-                } catch (err) {
-                    console.log(err);
+                if (config.log) console.log(`${msg.guild.name} (#${msg.guild.id}) by ${msg.author.tag} (#${msg.author.id}) - COOLDOWN`);
+                if (config.cooldownMessage) {
+                    try {
+                        msg.channel.send(getCooldownMessage(msg));
+                    } catch (err) {
+                        console.log(err);
+                    }
                 }
             }
             return;
@@ -58,6 +60,14 @@ client.on('ready', () => {
 client.on('guildCreate', (guild) => {
     console.log(`Bot joined guild: ${guild.name}`)
 })
+
+function getCooldownMessage(msg) {
+    var result = config.cooldownMessage;
+    result = result.replace("%seconds%", (config.cooldown/1000-(new Date().getTime() - cooldowns[msg.author])/1000).toFixed(1));
+    result = result.replace("%name%", msg.author.username);
+    result = result.replace("%tag%", `<@${msg.author.id}>`);
+    return result;
+}
 
 function addCooldown(author) {
     if (config.cooldown <= 0) return; 
