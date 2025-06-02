@@ -2,7 +2,6 @@
 The most useless and self-centered Discord bot you'll ever find
 
 ## `config.json` structure:
-The `cooldown` field is time in milliseconds (1000 milliseconds = 1 second)
 ```JSON
 {
   "token": "YOUR_DISCORD_BOT_TOKEN",
@@ -12,6 +11,7 @@ The `cooldown` field is time in milliseconds (1000 milliseconds = 1 second)
   "cooldownMessage": "bruh, you are going too fast, wait %seconds% seconds"
 }
 ```
+The `cooldown` field is time in milliseconds (1000 milliseconds = 1 second)
 
 
 ## `quotes.json` structure:
@@ -19,6 +19,7 @@ The `cooldown` field is time in milliseconds (1000 milliseconds = 1 second)
 [
   "I am so good looking",
   "This bot is not good, who even made this",
-  "I am testing stuff ok?"
+  "I am testing stuff ok?",
+  "Get off my lawn"
 ]
 ```
