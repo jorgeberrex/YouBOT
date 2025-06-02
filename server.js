@@ -37,7 +37,7 @@ const rest = new REST({ version: '10' }).setToken(config.token);
 })();
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}, in ${client.guilds.cache.size} guilds`);
+    console.log(`Logged in as ${client.user.tag}, in ${client.guilds.cache.size} ${client.guilds.cache.size === 1 ? 'guild' : 'guilds'}`);
 });
 
 client.on('guildCreate', (guild) => {
@@ -48,7 +48,7 @@ client.on('interactionCreate', async (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
     if (interaction.commandName === 'servercount') {
-        await interaction.reply(`This bot is in ${client.guilds.cache.size} guilds`);
+        await interaction.reply(`This bot is in ${client.guilds.cache.size} ${client.guilds.cache.size === 1 ? 'guild' : 'guilds'}`);
     } else if (interaction.commandName === 'why') {
         await interaction.reply('why not');
     }
